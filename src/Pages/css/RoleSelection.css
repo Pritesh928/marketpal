@@ -1,0 +1,143 @@
+/* === Global Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0d0d0d;
+  overflow: hidden;
+}
+
+/* === Container === */
+.role-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+  position: relative;
+  color: #fff;
+  animation: fadeIn 1.5s ease;
+}
+
+/* === Card === */
+.role-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 221, 87, 0.3);
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  width: 350px;
+  box-shadow: 0 0 25px rgba(255, 221, 87, 0.1);
+  backdrop-filter: blur(10px);
+  animation: floatUp 1.3s ease forwards;
+}
+
+.role-card h1 {
+  font-size: 2rem;
+  color: #ffdd57;
+  margin-bottom: 10px;
+}
+
+.role-card p {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* === Buttons === */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.seller-btn,
+.buyer-btn {
+  background: linear-gradient(135deg, #ffdd57, #ffcc00);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  padding: 12px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 221, 87, 0.3);
+  transform: scale(1);
+}
+
+.seller-btn:hover,
+.buyer-btn:hover {
+  box-shadow: 0 0 25px rgba(255, 221, 87, 0.8);
+  transform: scale(1.05);
+}
+
+/* === Admin Button === */
+.admin-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: transparent;
+  border: 1px solid rgba(255, 221, 87, 0.4);
+  color: #ffdd57;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 12px rgba(255, 221, 87, 0.2);
+}
+
+.admin-btn:hover {
+  opacity: 1;
+  background: rgba(255, 221, 87, 0.1);
+  box-shadow: 0 0 20px rgba(255, 221, 87, 0.6);
+  transform: scale(1.1);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional glowing animation for aesthetic vibe */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 221, 87, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 221, 87, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 221, 87, 0.2);
+  }
+}
+
+.seller-btn:hover,
+.buyer-btn:hover {
+  animation: glowPulse 1.5s infinite alternate;
+}

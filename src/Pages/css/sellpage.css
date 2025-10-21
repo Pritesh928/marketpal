@@ -1,0 +1,287 @@
+/* === SELL PAGE === */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: auto; /* ✅ Enable page scrolling */
+  background: radial-gradient(circle at top, #111 0%, #0a0a0a 100%);
+}
+
+.sell-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #111 0%, #0a0a0a 100%);
+  color: #f5f5f5;
+  font-family: "Poppins", sans-serif;
+  padding: 30px;
+  overflow-y: auto; /* ✅ Allow vertical scroll */
+}
+
+.sell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffd54f;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.go-home-btn {
+  background: #ffd54f;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #111;
+  transition: 0.3s ease;
+}
+.go-home-btn:hover {
+  background: #ffca28;
+}
+
+/* === Form === */
+.sell-form {
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 213, 79, 0.2);
+  border-radius: 16px;
+  padding: 25px;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 213, 79, 0.05);
+}
+
+.sell-form h2 {
+  color: #ffd54f;
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #f5f5f5;
+  outline: none;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.add-btn,
+.cancel-btn {
+  background: #ffd54f;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: #111;
+}
+
+.add-btn:hover {
+  background: #ffca28;
+}
+
+.cancel-btn {
+  background: #444;
+  color: #f5f5f5;
+}
+.cancel-btn:hover {
+  background: #555;
+}
+
+.status-msg {
+  margin-top: 15px;
+  color: #ffd54f;
+}
+
+/* === Local Products Section === */
+.local-products {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.local-products h3 {
+  color: #ffd54f;
+  margin-bottom: 15px;
+}
+
+/* ✅ Horizontal scroll for product cards */
+.scrollable {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+.scrollable::-webkit-scrollbar {
+  height: 8px;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: #ffd54f;
+  border-radius: 10px;
+}
+
+.product-card {
+  min-width: 230px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 213, 79, 0.2);
+  padding: 15px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.04);
+}
+
+.product-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.price {
+  color: #ffd54f;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  background: #ffd54f;
+  color: #111;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.delete-btn {
+  background: #e53935;
+  color: white;
+}
+.edit-btn:hover {
+  background: #ffca28;
+}
+.delete-btn:hover {
+  background: #c62828;
+}
+/* === Extra Styling for New Parts === */
+
+/* Spacing around all form elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Style dropdown (conditionType select) */
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #f5f5f5;
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-group select:hover {
+  border-color: #ffd54f;
+}
+
+/* Style file input */
+.form-group input[type="file"] {
+  background: transparent;
+  color: #ffd54f;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+/* Image preview box */
+.image-preview {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-preview img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 213, 79, 0.3);
+  box-shadow: 0 0 15px rgba(255, 213, 79, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-preview img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 213, 79, 0.3);
+}
+
+/* Align buttons nicely on all screen sizes */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* Add smooth shadow for form card */
+.sell-form {
+  box-shadow: 0 0 25px rgba(255, 213, 79, 0.1);
+  transition: transform 0.3s ease;
+}
+.sell-form:hover {
+  transform: scale(1.01);
+}
+/* Style file input */
+.form-group input[type="file"] {
+  display: inline-block;
+  background: #ffd54f;
+  color: #111;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  width: fit-content;
+  align-self: center;
+}
+
+/* Match hover look with add-btn */
+.form-group input[type="file"]:hover {
+  background: #ffca28;
+}

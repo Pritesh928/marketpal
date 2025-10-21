@@ -1,0 +1,16 @@
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\AuthApplication.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\config\CorsConfig.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\controller\AuthController.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\controller\HomeController.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\controller\PaymentController.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\controller\ProductController.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\dto\LoginRequest.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\dto\RegisterRequest.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\entity\LoginRecord.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\entity\Product.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\entity\UserEntity.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\repository\LoginRecordRepository.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\repository\ProductRepository.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\repository\UserRepository.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\service\AuthService.java
+C:\Users\hp\marketpal123\backend\src\main\java\com\example\auth\service\ProductService.java
