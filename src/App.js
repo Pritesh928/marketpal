@@ -12,9 +12,10 @@ import RoleSelection from "./Pages/RoleSelection";
 import LoginRegister from "./Pages/LoginRegister";
 import HomePage from "./Pages/Homepage";
 import Admin from "./Pages/Admin";
+import AdminAuth from "./Pages/AdminAuth"; // ✅ New admin login page
 import SellPage from "./Pages/SellPage";
-import CartPage from "./Pages/CartPage"; // ✅ Added
-import PaymentPage from "./Pages/PaymentPage"; // ✅ Added
+import CartPage from "./Pages/CartPage";
+import PaymentPage from "./Pages/PaymentPage";
 
 function App() {
   return (
@@ -50,7 +51,6 @@ function AppRoutes() {
       />
 
       {/* 3️⃣ Home (User Dashboard) — For logged-in users only */}
-      {/* ✅ Wildcard (*) ensures nested routes like /home/cart, /home/product/:id work */}
       <Route
         path="/home/*"
         element={isLoggedIn ? <HomePage /> : <Navigate to="/login" replace />}
@@ -74,19 +74,22 @@ function AppRoutes() {
         element={isLoggedIn ? <SellPage /> : <Navigate to="/login" replace />}
       />
 
-      {/* 7️⃣ Admin Dashboard — Restricted to admin users */}
+      {/* 7️⃣ Admin Auth — for admin login */}
+      <Route path="/admin-auth" element={<AdminAuth />} />
+
+      {/* 8️⃣ Admin Dashboard — Restricted to logged-in admins */}
       <Route
         path="/admin"
         element={
           isLoggedIn && userRole === "admin" ? (
             <Admin />
           ) : (
-            <Navigate to="/" replace />
+            <Navigate to="/admin-auth" replace />
           )
         }
       />
 
-      {/* 8️⃣ Fallback for invalid routes */}
+      {/* 9️⃣ Fallback for invalid routes */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

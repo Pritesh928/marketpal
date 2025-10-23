@@ -11,8 +11,7 @@ export default function RoleSelection() {
     localStorage.removeItem("isLoggedIn");
 
     if (role === "admin") {
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/admin");
+      navigate("/admin-auth"); // ✅ Redirect to admin auth page
     } else {
       navigate("/login");
     }
@@ -35,7 +34,7 @@ export default function RoleSelection() {
 
       {/* 👑 Admin Access Button */}
       <button className="admin-btn" onClick={() => handleRoleSelect("admin")}>
-        Admin 
+        👑 Admin
       </button>
     </div>
   );

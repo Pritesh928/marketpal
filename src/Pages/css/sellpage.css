@@ -1,26 +1,35 @@
-/* === SELL PAGE === */
+/* === SELL PAGE (FINAL POLISHED + SCROLL FIXED) === */
+
 html, body {
-  height: 100%;
+  height: auto; /* ✅ allow full page scroll */
+  min-height: 100%;
   margin: 0;
-  overflow-y: auto; /* ✅ Enable page scrolling */
   background: radial-gradient(circle at top, #111 0%, #0a0a0a 100%);
+  font-family: "Poppins", sans-serif;
+  color: #f5f5f5;
+  overflow-x: hidden; /* prevent side-scroll */
 }
 
+/* === Container === */
 .sell-container {
   min-height: 100vh;
+  padding: 40px 20px 80px; /* ✅ extra bottom padding for scroll comfort */
   background: radial-gradient(circle at top, #111 0%, #0a0a0a 100%);
-  color: #f5f5f5;
-  font-family: "Poppins", sans-serif;
-  padding: 30px;
-  overflow-y: auto; /* ✅ Allow vertical scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* ✅ allow vertical scroll */
 }
 
+/* === Header === */
 .sell-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #ffd54f;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 1000px;
   flex-wrap: wrap;
 }
 
@@ -32,22 +41,27 @@ html, body {
   cursor: pointer;
   font-weight: 600;
   color: #111;
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 .go-home-btn:hover {
   background: #ffca28;
 }
 
-/* === Form === */
+/* === Form Section === */
 .sell-form {
   background: rgba(20, 20, 20, 0.85);
-  border: 1px solid rgba(255, 213, 79, 0.2);
+  border: 1px solid rgba(255, 213, 79, 0.3);
   border-radius: 16px;
   padding: 25px;
-  max-width: 700px;
-  margin: 0 auto 40px;
+  width: 100%;
+  max-width: 600px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(255, 213, 79, 0.05);
+  box-shadow: 0 0 25px rgba(255, 213, 79, 0.1);
+  margin-bottom: 60px;
+  transition: transform 0.3s ease;
+}
+.sell-form:hover {
+  transform: scale(1.01);
 }
 
 .sell-form h2 {
@@ -55,40 +69,93 @@ html, body {
   margin-bottom: 20px;
 }
 
-.form-group input {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group select {
   width: 100%;
-  margin: 8px 0;
   padding: 10px;
   background: #1c1c1c;
   border: 1px solid #333;
   border-radius: 8px;
   color: #f5f5f5;
   outline: none;
+  transition: border 0.2s ease;
 }
 
-.button-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #ffd54f;
 }
 
-.add-btn,
-.cancel-btn {
+.form-group input::placeholder {
+  color: #999;
+}
+
+/* === File Input === */
+.form-group input[type="file"] {
   background: #ffd54f;
+  color: #111;
   border: none;
   padding: 10px 20px;
   font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s ease;
-  color: #111;
+  width: fit-content;
+  align-self: center;
+  transition: 0.3s;
 }
-
-.add-btn:hover {
+.form-group input[type="file"]:hover {
   background: #ffca28;
 }
 
+/* === Preview Image === */
+.image-preview {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+.image-preview img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 213, 79, 0.3);
+  background: #000;
+  box-shadow: 0 0 20px rgba(255, 213, 79, 0.1);
+  transition: 0.3s;
+}
+.image-preview img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 213, 79, 0.3);
+}
+
+/* === Buttons === */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.add-btn,
+.cancel-btn {
+  background: #ffd54f;
+  color: #111;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.add-btn:hover {
+  background: #ffca28;
+}
 .cancel-btn {
   background: #444;
   color: #f5f5f5;
@@ -102,186 +169,104 @@ html, body {
   color: #ffd54f;
 }
 
-/* === Local Products Section === */
+/* === Product Section === */
 .local-products {
+  width: 100%;
+  max-width: 1000px;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .local-products h3 {
   color: #ffd54f;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-/* ✅ Horizontal scroll for product cards */
+/* Responsive Grid for Products */
 .scrollable {
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  gap: 20px;
-  padding: 10px;
-  scroll-behavior: smooth;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  justify-items: center;
 }
 
-.scrollable::-webkit-scrollbar {
-  height: 8px;
-}
-.scrollable::-webkit-scrollbar-thumb {
-  background: #ffd54f;
-  border-radius: 10px;
-}
-
+/* === Product Card === */
 .product-card {
-  min-width: 230px;
   background: #1a1a1a;
   border-radius: 12px;
-  border: 1px solid rgba(255, 213, 79, 0.2);
+  border: 1px solid rgba(255, 213, 79, 0.25);
   padding: 15px;
+  width: 100%;
+  max-width: 260px;
   text-align: center;
-  flex-shrink: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 0 10px rgba(255, 213, 79, 0.1);
 }
-
 .product-card:hover {
-  transform: scale(1.04);
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 213, 79, 0.3);
 }
 
+/* Product Image */
 .product-card img {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
+  height: auto; /* ✅ auto-adjust height */
+  object-fit: scale-down; /* ✅ keeps proportions */
   border-radius: 10px;
   margin-bottom: 10px;
+  border: 1px solid rgba(255, 213, 79, 0.3);
+  display: block;
+  max-height: 300px; /* optional safety limit */
 }
 
-.price {
+
+/* Product Text */
+.product-card h4 {
   color: #ffd54f;
+  margin: 6px 0;
+  font-size: 1rem;
+}
+.product-card p {
+  font-size: 0.85rem;
+  color: #ccc;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+.price {
+  color: #9cff9c;
   font-weight: bold;
-  margin-top: 5px;
+  font-size: 1rem;
+  margin: 6px 0;
 }
 
+/* Card Buttons */
 .action-buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
 }
-
 .edit-btn,
 .delete-btn {
-  background: #ffd54f;
-  color: #111;
   border: none;
-  padding: 6px 12px;
   border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
-  font-weight: 600;
 }
-
-.delete-btn {
-  background: #e53935;
-  color: white;
+.edit-btn {
+  background: #ffd54f;
+  color: #111;
 }
 .edit-btn:hover {
   background: #ffca28;
 }
+.delete-btn {
+  background: #e53935;
+  color: #fff;
+}
 .delete-btn:hover {
   background: #c62828;
-}
-/* === Extra Styling for New Parts === */
-
-/* Spacing around all form elements */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-/* Style dropdown (conditionType select) */
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  background: #1c1c1c;
-  border: 1px solid #333;
-  border-radius: 8px;
-  color: #f5f5f5;
-  font-size: 14px;
-  outline: none;
-  appearance: none;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.form-group select:hover {
-  border-color: #ffd54f;
-}
-
-/* Style file input */
-.form-group input[type="file"] {
-  background: transparent;
-  color: #ffd54f;
-  border: none;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-/* Image preview box */
-.image-preview {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-preview img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 213, 79, 0.3);
-  box-shadow: 0 0 15px rgba(255, 213, 79, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.image-preview img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 213, 79, 0.3);
-}
-
-/* Align buttons nicely on all screen sizes */
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 15px;
-}
-
-/* Add smooth shadow for form card */
-.sell-form {
-  box-shadow: 0 0 25px rgba(255, 213, 79, 0.1);
-  transition: transform 0.3s ease;
-}
-.sell-form:hover {
-  transform: scale(1.01);
-}
-/* Style file input */
-.form-group input[type="file"] {
-  display: inline-block;
-  background: #ffd54f;
-  color: #111;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  width: fit-content;
-  align-self: center;
-}
-
-/* Match hover look with add-btn */
-.form-group input[type="file"]:hover {
-  background: #ffca28;
 }
