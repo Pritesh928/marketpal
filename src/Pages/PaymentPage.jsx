@@ -39,7 +39,7 @@ export default function PaymentPage() {
       const orderResponse = await fetch("http://localhost:8080/api/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: total * 100 }), // amount in paise
+        body: JSON.stringify({ amount: total }), // amount in paise
       });
 
       const orderData = await orderResponse.json();
@@ -60,7 +60,7 @@ export default function PaymentPage() {
         handler: function (response) {
           alert("✅ Payment Successful! ID: " + response.razorpay_payment_id);
           localStorage.setItem("orderStatus", "paid");
-          navigate("/cart");
+          navigate("/home/cart");
         },
         prefill: {
           name: formData.name,

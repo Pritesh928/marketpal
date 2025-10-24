@@ -10,10 +10,16 @@ export default function RoleSelection() {
     localStorage.setItem("userRole", role);
     localStorage.removeItem("isLoggedIn");
 
-    if (role === "admin") {
-      navigate("/admin-auth"); // ✅ Redirect to admin auth page
-    } else {
-      navigate("/login");
+    switch (role) {
+      case "admin":
+        navigate("/admin-auth"); 
+        break;
+      case "seller":
+      case "buyer":
+        navigate("/login");
+        break;
+      default:
+        navigate("/");
     }
   };
 

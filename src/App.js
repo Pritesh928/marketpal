@@ -8,11 +8,12 @@ import {
   useLocation,
 } from "react-router-dom";
 
+// ✅ Import all pages
 import RoleSelection from "./Pages/RoleSelection";
 import LoginRegister from "./Pages/LoginRegister";
 import HomePage from "./Pages/Homepage";
 import Admin from "./Pages/Admin";
-import AdminAuth from "./Pages/AdminAuth"; // ✅ New admin login page
+import AdminAuth from "./Pages/AdminAuth";
 import SellPage from "./Pages/SellPage";
 import CartPage from "./Pages/CartPage";
 import PaymentPage from "./Pages/PaymentPage";
@@ -31,7 +32,7 @@ function AppRoutes() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const userRole = localStorage.getItem("userRole");
 
-  // 🧹 Clear session if user visits root (RoleSelection)
+  // 🧹 Reset user data when visiting root (role selection)
   useEffect(() => {
     if (location.pathname === "/") {
       localStorage.removeItem("isLoggedIn");
@@ -41,43 +42,43 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* 1️⃣ Entry Point — Role Selection */}
+      {/* 1️⃣ Entry — Role Selection */}
       <Route path="/" element={<RoleSelection />} />
 
-      {/* 2️⃣ Login Page — Allowed only after selecting a role */}
+      {/* 2️⃣ Login/Register — Only after selecting a role */}
       <Route
         path="/login"
         element={userRole ? <LoginRegister /> : <Navigate to="/" replace />}
       />
 
-      {/* 3️⃣ Home (User Dashboard) — For logged-in users only */}
+      {/* 3️⃣ Home — For logged-in users only */}
       <Route
         path="/home/*"
         element={isLoggedIn ? <HomePage /> : <Navigate to="/login" replace />}
       />
 
-      {/* 4️⃣ Cart Page — Only for logged-in users */}
+      {/* 4️⃣ Cart — Only for logged-in users */}
       <Route
         path="/cart"
         element={isLoggedIn ? <CartPage /> : <Navigate to="/login" replace />}
       />
 
-      {/* 5️⃣ Payment Page — Only for logged-in users */}
+      {/* 5️⃣ Payment — Only for logged-in users */}
       <Route
         path="/payment"
         element={isLoggedIn ? <PaymentPage /> : <Navigate to="/login" replace />}
       />
 
-      {/* 6️⃣ Sell Page — Only for logged-in users */}
+      {/* 6️⃣ Sell — Only for logged-in users */}
       <Route
         path="/sell"
         element={isLoggedIn ? <SellPage /> : <Navigate to="/login" replace />}
       />
 
-      {/* 7️⃣ Admin Auth — for admin login */}
+      {/* 7️⃣ Admin Auth — Admin login page */}
       <Route path="/admin-auth" element={<AdminAuth />} />
 
-      {/* 8️⃣ Admin Dashboard — Restricted to logged-in admins */}
+      {/* 8️⃣ Admin Dashboard — Only accessible by logged-in admin */}
       <Route
         path="/admin"
         element={
@@ -89,7 +90,7 @@ function AppRoutes() {
         }
       />
 
-      {/* 9️⃣ Fallback for invalid routes */}
+      {/* 9️⃣ Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
