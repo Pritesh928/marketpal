@@ -1,179 +1,155 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./css/Admin.css";
 
 axios.defaults.baseURL = "http://localhost:8080";
 
-export default function Admin() {
+export default function AdminDashboard() {
+  const [stats, setStats] = useState({ users: 0, products: 0, orders: 0 });
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({
-    title: "",
-    description: "",
-    price: "",
-    imageUrl: "",
-    category: "",
-  });
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // ✅ Fetch all products from backend
+  // Fetch products + stats
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchAll = async () => {
       try {
-        const res = await axios.get("/api/products");
-        setProducts(res.data);
+        setLoading(true);
+        const [prodRes, statsRes] = await Promise.all([
+          axios.get("/api/products"),
+          axios.get("/api/admin/stats"),
+        ]);
+        setProducts(prodRes.data);
+        setStats(statsRes.data);
       } catch (err) {
-        console.error("Error fetching products:", err);
+        console.error("Error loading dashboard:", err);
         setMessage("⚠️ Could not connect to backend.");
+      } finally {
+        setLoading(false);
       }
     };
-    fetchProducts();
+    fetchAll();
   }, []);
 
-  // ✅ Add new product
-  const handleAddProduct = async () => {
-    if (!newProduct.title || !newProduct.price || !newProduct.category) {
-      alert("Please fill out required fields");
-      return;
-    }
-
-    try {
-      const payload = {
-        ...newProduct,
-        price: parseFloat(newProduct.price),
-        ownerUsername: "admin", // optional: or from localStorage if you have admin auth
-      };
-
-      const res = await axios.post("/api/products", payload);
-      setProducts((prev) => [...prev, res.data]);
-      setNewProduct({
-        title: "",
-        description: "",
-        price: "",
-        imageUrl: "",
-        category: "",
-      });
-      setMessage("✅ Product added successfully!");
-    } catch (err) {
-      console.error("Error adding product:", err);
-      setMessage("⚠️ Failed to add product.");
-    }
-  };
-
-  // ✅ Delete a product
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
       await axios.delete(`/api/products/${id}`);
       setProducts((prev) => prev.filter((p) => p.id !== id));
-      setMessage("🗑️ Product deleted!");
+      setMessage("🗑️ Product deleted successfully!");
     } catch (err) {
-      console.error("Error deleting:", err);
+      console.error("Delete failed:", err);
       setMessage("⚠️ Failed to delete product.");
     }
   };
 
   return (
-    <div className="admin-page">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="navbar-inner">
-          <div className="navbar-logo">
-            <div className="logo-box">⚡</div>
-            <span className="logo-text">Marketpal Admin</span>
-          </div>
-          <div className="navbar-actions">
-            <button
-              className="sell-btn"
-              onClick={() => (window.location.href = "/home")}
-            >
-              Go to Home
-            </button>
-          </div>
-        </div>
-      </nav>
+    <div className="admin-container">
+      {/* Top Navbar */}
+      <header className="admin-navbar">
+        <h1>🛍️ Marketplace Admin</h1>
+        <nav>
+          <button
+            className={activeTab === "dashboard" ? "active" : ""}
+            onClick={() => setActiveTab("dashboard")}
+          >
+            Dashboard
+          </button>
+          <button
+            className={activeTab === "products" ? "active" : ""}
+            onClick={() => setActiveTab("products")}
+          >
+            Products
+          </button>
+          <button
+            className={activeTab === "orders" ? "active" : ""}
+            onClick={() => setActiveTab("orders")}
+          >
+            Orders
+          </button>
+          <button
+            className={activeTab === "users" ? "active" : ""}
+            onClick={() => setActiveTab("users")}
+          >
+            Users
+          </button>
+        </nav>
+      </header>
 
-      {/* 🧠 Admin Control Panel */}
-      <div className="admin-panel">
-        <h2>Add Product</h2>
-        <div className="admin-form">
-          <input
-            type="text"
-            placeholder="Product Title"
-            value={newProduct.title}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, title: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            value={newProduct.description}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, description: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            value={newProduct.price}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, price: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Image URL (optional)"
-            value={newProduct.imageUrl}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, imageUrl: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Category"
-            value={newProduct.category}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, category: e.target.value })
-            }
-          />
-          <button onClick={handleAddProduct}>Add Product</button>
-        </div>
-
-        {message && <p className="status-msg">{message}</p>}
-      </div>
-
-      {/* 🛍️ Product Grid */}
-      <div className="products">
-        <h2>All Products</h2>
-        <div className="product-grid">
-          {products.length > 0 ? (
-            products.map((product) => (
-              <div className="product-card" key={product.id}>
-                <img
-                  src={product.imageUrl || "https://via.placeholder.com/150"}
-                  alt={product.title}
-                />
-                <h4>{product.title}</h4>
-                <p>{product.description}</p>
-                <p className="price">₹{product.price}</p>
-                <p className="category">Category: {product.category}</p>
-                <p className="owner">
-                  Owner: {product.ownerUsername || "Unknown"}
-                </p>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(product.id)}
-                >
-                  Delete
-                </button>
+      {/* Main Content */}
+      <main>
+        {activeTab === "dashboard" && (
+          <section className="dashboard-section">
+            <h2>Overview</h2>
+            <div className="stats-grid">
+              <div className="stat-card">
+                <h3>👤 Users</h3>
+                <p>{stats.users}</p>
               </div>
-            ))
-          ) : (
-            <p>No Products .</p>
-          )}
-        </div>
-      </div>
+              <div className="stat-card">
+                <h3>🛒 Products</h3>
+                <p>{stats.products}</p>
+              </div>
+              <div className="stat-card">
+                <h3>📦 Orders</h3>
+                <p>{stats.orders}</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {activeTab === "products" && (
+          <section className="products-section">
+            <h2>Manage Products</h2>
+            {loading ? (
+              <p>Loading products...</p>
+            ) : (
+              <div className="product-grid">
+                {products.length > 0 ? (
+                  products.map((p) => (
+                    <div className="product-card" key={p.id}>
+                      <img
+                        src={p.imageUrl || "https://via.placeholder.com/150"}
+                        alt={p.title}
+                      />
+                      <h4>{p.title}</h4>
+                      <p>{p.description}</p>
+                      <p className="price">₹{p.price}</p>
+                      <p className="category">Category: {p.category}</p>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(p.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p>No products found.</p>
+                )}
+              </div>
+            )}
+          </section>
+        )}
+
+        {activeTab === "orders" && (
+          <section className="orders-section">
+            <h2>Order Management</h2>
+            <p>Coming soon...</p>
+          </section>
+        )}
+
+        {activeTab === "users" && (
+          <section className="users-section">
+            <h2>User Management</h2>
+            <p>Coming soon...</p>
+          </section>
+        )}
+      </main>
+
+      {message && <p className="status-msg">{message}</p>}
     </div>
   );
 }

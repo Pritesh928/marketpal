@@ -211,7 +211,7 @@ export default function SellPage() {
 
       {products.length > 0 && (
         <section className="local-products">
-          <h3>🛒 Products in Database</h3>
+          <h3>🛒Listed Products </h3>
           <div className="scrollable">
             {products.map((p) => (
               <div className="product-card" key={p.id}>

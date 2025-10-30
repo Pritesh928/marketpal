@@ -1,5 +1,7 @@
 com\example\auth\config\CorsConfig.class
+com\example\auth\controller\AdminController$AdminLoginRequest.class
 com\example\auth\entity\Product.class
+com\example\auth\repository\AdminRepository.class
 com\example\auth\dto\LoginRequest.class
 com\example\auth\repository\ProductRepository.class
 com\example\auth\dto\RegisterRequest.class
@@ -15,4 +17,9 @@ com\example\auth\controller\PaymentController.class
 com\example\auth\config\CorsConfig$1.class
 com\example\auth\controller\HomeController.class
 com\example\auth\controller\ProductController.class
+com\example\auth\service\AdminService.class
+com\example\auth\entity\Admin.class
+com\example\auth\controller\AdminController.class
 com\example\auth\entity\UserEntity.class
+com\example\auth\entity\OrderEntity.class
+com\example\auth\repository\OrderRepository.class
